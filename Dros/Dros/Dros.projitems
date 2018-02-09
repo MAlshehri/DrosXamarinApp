@@ -15,7 +15,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DrosDbContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Author.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\ContentVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\ITrackable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Material.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\MaterialAuthor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\MaterialCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\MaterialTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Tag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Models\Url.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
@@ -57,7 +69,14 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
-
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)dros.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)dros.zip" />
+  </ItemGroup>
   <!--#if (CreateBackendProject)
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDataStore.cs" />
   #endif-->
