@@ -24,9 +24,9 @@ namespace Dros
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Log.Debug("Decompress", "unzip {0}", e.Message);
+                Console.WriteLine($"{e.Message}");
             }
 
         }

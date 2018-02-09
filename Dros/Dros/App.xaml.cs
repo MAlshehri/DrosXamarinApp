@@ -35,10 +35,10 @@ namespace Dros
                         using (var destination = File.Create(ZippedDbPath))
                         {
                             source.CopyTo(destination);
-                            Helpers.UnzipFile(ZippedDbPath, DatabaseFilePath);
                         }
                     }
-                }       
+                }
+                Helpers.UnzipFile(ZippedDbPath, DatabaseFilePath);
             }
             if (File.Exists(DatabaseFilePath))
             {
