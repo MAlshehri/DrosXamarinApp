@@ -3,28 +3,22 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Dros.Data;
+using Dros.Data.Models;
 using Dros.Views;
+using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
+using System.IO.Compression;
+using static Dros.Helper;
 
 namespace Dros
 {
 	public partial class App : Application
 	{
-        public static string DatabaseFilePath => Helpers.GetLocalFilePath("dros.db");
-        public static string ZippedDbPath => Helpers.GetLocalFilePath("dros.zip");
+        
 
         public App ()
 		{
 			InitializeComponent();
-
-            
-
-            MainPage = new MainPage();
-        }
-
-		protected override void OnStart ()
-		{
-            MainPage = new MainPage();
 
             if (!File.Exists(DatabaseFilePath))
             {
@@ -38,16 +32,15 @@ namespace Dros
                         }
                     }
                 }
-                Helpers.UnzipFile(ZippedDbPath, DatabaseFilePath);
+                UnzipFile(ZippedDbPath, DatabaseFilePath);
             }
-            if (File.Exists(DatabaseFilePath))
-            {
-                SQLitePCL.Batteries_V2.Init();
-                using (var context = new DrosDbContext())
-                {
-                    Debug.WriteLine(context.Authors.FirstOrDefault().Name);
-                }
-            }
+            SQLitePCL.Batteries_V2.Init();
+            MainPage = new MainPage();
+        }
+
+		protected override void OnStart ()
+		{
+
         }
 
 		protected override void OnSleep ()

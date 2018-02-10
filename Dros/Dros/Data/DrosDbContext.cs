@@ -1,5 +1,6 @@
 ﻿using System;
 using Dros.Data.Models;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dros.Data
@@ -12,9 +13,21 @@ namespace Dros.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=dros.db");
+            string id = string.Format("{0}.db", Guid.NewGuid().ToString());
+            var builder = new SqliteConnectionStringBuilder()
+            {
+                DataSource = id,
+                Mode = SqliteOpenMode.Memory,
+                Cache = SqliteCacheMode.Shared
+            };
+            var connection = new SqliteConnection($"Filename={Helper.DatabaseFilePath}");
+            connection.Open();
+            //connection.EnableExtensions(true);
+
+            optionsBuilder.UseSqlite(connection);
             base.OnConfiguring(optionsBuilder);
         }
 
